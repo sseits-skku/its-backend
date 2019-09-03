@@ -3,13 +3,11 @@ from django.utils.translation import ugettext_lazy as _
 
 from content.models import TextSnippet
 from utils.permissions import OwnerMixin
-from utils.placeholder_models import PlaceholderModel, SharedCharField
 
 
-class Category(PlaceholderModel):
-    title = SharedCharField(vname='Category name',
-                            unique=True,
-                            null=False, blank=False)
+class Category(models.Model):
+    title = models.CharField(verbose_name='Category name',
+                             unique=True, null=False, blank=False)
     member_only = models.BooleanField(verbose_name=_('Is member-only?'),
                                       default=True)
 
@@ -23,10 +21,9 @@ class Category(PlaceholderModel):
         return self.title
 
 
-class Tag(PlaceholderModel):
-    title = SharedCharField(vname='Tag name',
-                            unique=True,
-                            null=False, blank=False)
+class Tag(models.Model):
+    title = models.CharField(verbose_name='Tag name',
+                             unique=True, null=False, blank=False)
 
     class Meta:
         app_label = 'board'
@@ -37,12 +34,11 @@ class Tag(PlaceholderModel):
         return self.title
 
 
-class PostStatus(PlaceholderModel):
-    title = SharedCharField(vname='Post status',
-                            unique=True,
-                            null=False, blank=False)
-    detail = SharedCharField(vname='Post detail',
-                             null=False, blank=False)
+class PostStatus(models.Model):
+    title = models.CharField(verbose_name='Post status',
+                             unique=True, null=False, blank=False)
+    detail = models.CharField(verbose_name='Post detail',
+                              null=False, blank=False)
 
     class Meta:
         app_label = 'board'
@@ -87,8 +83,8 @@ class Comment(OwnerMixin, TextSnippet):
 
 
 class Post(OwnerMixin, TextSnippet):
-    title = SharedCharField(vname='Post title',
-                            null=False, blank=False)
+    title = models.CharField(verbose_name='Post title',
+                             null=False, blank=False)
     # content from TextSnippet
     ip_addr = models.GenericIPAddressField(verbose_name=_('Wrote IP Address'))
     deleted = models.BooleanField(verbose_name=_('Is deleted'),

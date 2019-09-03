@@ -3,54 +3,57 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from content.models import TextSnippet
-from utils.placeholder_models import SharedCharField, PlaceholderModel
 
 
-class StockStatus(PlaceholderModel):
-    title = SharedCharField(vname='Stock status',
-                            null=False,
-                            unique=True)
+class StockStatus(models.Model):
+    title = models.CharField(verbose_name='Stock status',
+                             null=False, unique=True)
 
-    class Meta(PlaceholderModel.Meta):
+    class Meta:
         app_label = 'inventory'
         ordering = ('title', )
         verbose_name = _('stock status')
         verbose_name_plural = _('stock statuses')
 
+    def __str__(self):
+        return self.title
 
-class StockType(PlaceholderModel):
-    title = SharedCharField(vname='Stock type',
-                            null=False,
-                            unique=True)
 
-    class Meta(PlaceholderModel.Meta):
+class StockType(models.Model):
+    title = models.CharField(verbose_name='Stock type',
+                             null=False, unique=True)
+
+    class Meta:
         app_label = 'inventory'
         ordering = ('title', )
         verbose_name = _('stock type')
 
+    def __str__(self):
+        return self.title
+
 
 class OSType(models.Model):
-    major = SharedCharField(vname='OS type',
-                            null=False)
-    version = SharedCharField(vname='OS version',
-                              null=True, blank=True)
-    edition = SharedCharField(vname='OS edition',
-                              null=True, blank=True)
-    bit = SharedCharField(vname='OS bit',
-                          null=False)
+    major = models.CharField(verbose_name='OS type',
+                             null=False)
+    version = models.CharField(verbose_name='OS version',
+                               null=True, blank=True)
+    edition = models.CharField(verbose_name='OS edition',
+                               null=True, blank=True)
+    bit = models.CharField(verbose_name='OS bit',
+                           null=False)
 
-    class Meta(PlaceholderModel.Meta):
+    class Meta:
         app_label = 'inventory'
         ordering = ('major', 'version', 'bit')
         verbose_name = _('OS type')
-        
+
     def __str__(self):
         return f"{self.major} {self.version} {self.edition} {self.bit}bit"
 
 
 class Stock(TextSnippet):
-    stock_id = SharedCharField(vname='Stock ID',
-                               null=False)
+    stock_id = models.CharField(verbose_name='Stock ID',
+                                null=False)
     stock_type = models.ForeignKey('StockType',
                                    verbose_name=_('Stock type'),
                                    on_delete=models.PROTECT)
@@ -70,8 +73,8 @@ class Stock(TextSnippet):
 
 
 class Computer(Stock):
-    model_name = SharedCharField(vname='Computer model name',
-                                 null=False)
+    model_name = models.CharField(verbose_name='Computer model name',
+                                  null=False)
     os = models.ForeignKey('OSType',
                            verbose_name=_('Installed OS Type'),
                            on_delete=models.SET_NULL,
