@@ -12,16 +12,12 @@ User = get_user_model()
 
 
 class UserViewSet(mvs):
-    queryset = User.objects                  \
-                   .order_by('-date_joined') \
-                   .all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def get_permissions(self):
-        if self.action in ['list', 'destroy']:
+        if self.action in ['create', 'list', 'destroy']:
             perm_classes = [IsStaffUser]
-        elif self.action in ['create']:
-            perm_classes = [AllowAny]
         else:
             perm_classes = [IsOwner]
         return [perm() for perm in perm_classes]
