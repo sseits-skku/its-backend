@@ -15,10 +15,6 @@ def get_file_path(instance, filename):
 
 
 class Content(models.Model):
-    member_only = models.BooleanField(
-        verbose_name=_('Content for member only'),
-        default=False
-    )
     created_date = models.DateTimeField(
         verbose_name=_('Content created date'),
         auto_now_add=timezone.now
@@ -79,7 +75,8 @@ class TextSnippet(Content):
                             blank=True)
     content_type = models.CharField(max_length=255,
                                     verbose_name=_('Content type'),
-                                    default='Markdown')
+                                    default='Markdown',
+                                    blank=True)
 
     class Meta:
         app_label = 'content'

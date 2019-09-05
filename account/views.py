@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from rest_framework.viewsets import ModelViewSet as mvs
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import (
     UserSerializer, GroupSerializer, PermissionSerializer
@@ -16,9 +16,10 @@ class UserViewSet(mvs):
     serializer_class = UserSerializer
 
     def get_permissions(self):
-        if self.action in ['create', 'list', 'destroy']:
+        perm_classes = [IsAuthenticated]
+        if self.action in ['create', 'destroy']:
             perm_classes = [IsStaffUser]
-        else:
+        elif self.action in ['update', 'partial_update']:
             perm_classes = [IsOwner]
         return [perm() for perm in perm_classes]
 

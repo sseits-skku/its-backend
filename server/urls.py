@@ -11,10 +11,10 @@ urlpatterns = [
     path('auth/verify', TokenVerifyView.as_view(), name='token_verify'),
     path('auth/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('account/', include('account.urls')),
+    path('agenda/', include('agenda.urls')),
     path('board/', include('board.urls')),
     path('inventory/', include('inventory.urls')),
     path('ip-table/', include('iptable.urls')),
-    path('reserve/', include('reserve.urls')),
     path('content/', include('content.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
