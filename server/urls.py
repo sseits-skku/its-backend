@@ -11,6 +11,7 @@ urlpatterns = [
     path('auth/verify', TokenVerifyView.as_view(), name='token_verify'),
     path('auth/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('account/', include('account.urls')),
+    path('agenda/', include('agenda.urls')),
     path('board/', include('board.urls')),
     path('inventory/', include('inventory.urls')),
     path('ip-table/', include('iptable.urls')),
