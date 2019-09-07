@@ -9,7 +9,8 @@ class User(AbstractUser):
     skku_id = models.CharField(verbose_name=_('SKKU ID'),
                                max_length=255,
                                null=True, blank=True)
-    birthday = models.DateField(verbose_name=_('Birthday'))
+    birthday = models.DateField(verbose_name=_('Birthday'),
+                                null=True)
     phone_num = models.CharField(verbose_name=_('Phone number'),
                                  max_length=255,
                                  null=True, blank=True)
@@ -20,9 +21,6 @@ class User(AbstractUser):
     class Meta:
         app_label = 'account'
         ordering = ('-date_joined', )
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         # Fake deletion.

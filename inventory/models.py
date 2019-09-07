@@ -6,7 +6,8 @@ from content.models import TextSnippet
 
 
 class StockStatus(models.Model):
-    title = models.CharField(verbose_name='Stock status',
+    title = models.CharField(max_length=255,
+                             verbose_name='Stock status',
                              null=False, unique=True)
 
     class Meta:
@@ -20,7 +21,8 @@ class StockStatus(models.Model):
 
 
 class StockType(models.Model):
-    title = models.CharField(verbose_name='Stock type',
+    title = models.CharField(max_length=255,
+                             verbose_name='Stock type',
                              null=False, unique=True)
 
     class Meta:
@@ -33,13 +35,17 @@ class StockType(models.Model):
 
 
 class OSType(models.Model):
-    major = models.CharField(verbose_name='OS type',
+    major = models.CharField(max_length=255,
+                             verbose_name='OS type',
                              null=False)
-    version = models.CharField(verbose_name='OS version',
+    version = models.CharField(max_length=255,
+                               verbose_name='OS version',
                                null=True, blank=True)
-    edition = models.CharField(verbose_name='OS edition',
+    edition = models.CharField(max_length=255,
+                               verbose_name='OS edition',
                                null=True, blank=True)
-    bit = models.CharField(verbose_name='OS bit',
+    bit = models.CharField(max_length=255,
+                           verbose_name='OS bit',
                            null=False)
 
     class Meta:
@@ -52,7 +58,8 @@ class OSType(models.Model):
 
 
 class Stock(TextSnippet):
-    stock_id = models.CharField(verbose_name='Stock ID',
+    stock_id = models.CharField(max_length=255,
+                                verbose_name='Stock ID',
                                 null=False)
     stock_type = models.ForeignKey('StockType',
                                    verbose_name=_('Stock type'),
@@ -73,7 +80,8 @@ class Stock(TextSnippet):
 
 
 class Computer(Stock):
-    model_name = models.CharField(verbose_name='Computer model name',
+    model_name = models.CharField(max_length=255,
+                                  verbose_name='Computer model name',
                                   null=False)
     os = models.ForeignKey('OSType',
                            verbose_name=_('Installed OS Type'),

@@ -6,7 +6,8 @@ from utils.permissions import OwnerMixin
 
 
 class Category(models.Model):
-    title = models.CharField(verbose_name='Category name',
+    title = models.CharField(max_length=255,
+                             verbose_name='Category name',
                              unique=True, null=False, blank=False)
     member_only = models.BooleanField(verbose_name=_('Is member-only?'),
                                       default=True)
@@ -22,7 +23,8 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
-    title = models.CharField(verbose_name='Tag name',
+    title = models.CharField(max_length=255,
+                             verbose_name='Tag name',
                              unique=True, null=False, blank=False)
 
     class Meta:
@@ -35,9 +37,11 @@ class Tag(models.Model):
 
 
 class PostStatus(models.Model):
-    title = models.CharField(verbose_name='Post status',
+    title = models.CharField(max_length=255,
+                             verbose_name='Post status',
                              unique=True, null=False, blank=False)
-    detail = models.CharField(verbose_name='Post detail',
+    detail = models.CharField(max_length=255,
+                              verbose_name='Post detail',
                               null=False, blank=False)
 
     class Meta:
@@ -83,7 +87,8 @@ class Comment(OwnerMixin, TextSnippet):
 
 
 class Post(OwnerMixin, TextSnippet):
-    title = models.CharField(verbose_name='Post title',
+    title = models.CharField(max_length=255,
+                             verbose_name='Post title',
                              null=False, blank=False)
     # content from TextSnippet
     ip_addr = models.GenericIPAddressField(verbose_name=_('Wrote IP Address'))

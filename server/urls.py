@@ -14,7 +14,6 @@ urlpatterns = [
     path('board/', include('board.urls')),
     path('inventory/', include('inventory.urls')),
     path('ip-table/', include('iptable.urls')),
-    path('reserve/', include('reserve.urls')),
     path('content/', include('content.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

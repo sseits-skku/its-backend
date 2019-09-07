@@ -6,8 +6,8 @@ from account.models import User
 
 class OwnerMixin(models.Model):
     owner = models.ForeignKey('account.User',
-                              on_delete=models.SET_NULL,
-                              null=True, blank=True)
+                              on_delete=models.CASCADE,
+                              null=True, editable=False)
 
     class Meta:
         abstract = True
