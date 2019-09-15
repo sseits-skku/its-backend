@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group, Permission
 from rest_framework.viewsets import ModelViewSet as mvs
 from rest_framework.permissions import IsAuthenticated
 

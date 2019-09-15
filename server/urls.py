@@ -12,11 +12,10 @@ urlpatterns = [
     path('auth/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('account/', include('account.urls')),
     path('agenda/', include('agenda.urls')),
-    path('board/', include('board.urls')),
-    path('inventory/', include('inventory.urls')),
-    path('ip-table/', include('iptable.urls')),
-    path('content/', include('content.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('edu/', include('education.urls')),
+    path('gallery/', include('gallery.urls')),
+    path('media/', include('mediaprovider.urls'))
+]
 
 if settings.DEBUG:
     from django.contrib import admin

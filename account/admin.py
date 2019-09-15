@@ -34,8 +34,3 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('is_active',)
         }),
     ]
-
-
-@admin.register(Permission)
-class PermissionAdmin(admin.ModelAdmin):
-    pass
