@@ -1,6 +1,10 @@
 from django.conf import settings
 from django.http import JsonResponse, FileResponse
 from django.shortcuts import get_object_or_404
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes
+)
 from rest_framework.exceptions import (
     MethodNotAllowed,
     NotAuthenticated,
@@ -8,6 +12,7 @@ from rest_framework.exceptions import (
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import FileModel
 from .serializers import UploadSerializer
@@ -18,26 +23,32 @@ import os
 from secrets import token_urlsafe
 
 
+@api_view(['POST'])
+@authentication_classes((JWTAuthentication,))
 def open_view(request):
-    if request.method == 'POST':
-        file_name = json.loads(request.body)['file']
-        fm = get_object_or_404(FileModel, file=file_name)
-        if fm.is_public or request.user.is_authenticated:
-            fm.token = token_urlsafe(settings.TOKEN_LENGTH)
-            fm.is_open = True
-            fm.save()
-            url_timeout.apply_async((fm.pk, ), countdown=settings.TOKEN_TIMEOUT)
-            return JsonResponse({'success': True, 'expires_at': settings.TOKEN_TIMEOUT})
-        else:
-            raise NotAuthenticated()
-    raise MethodNotAllowed(request.method)
+    try:
+        file_name = f"files/{json.loads(request.body)['file']}"
+    except KeyError:
+        raise NotFound()
+    fm = get_object_or_404(FileModel, file=file_name)
+    if fm.is_public or request.user.is_authenticated:
+        fm.token = token_urlsafe(settings.TOKEN_LENGTH)
+        fm.is_open = True
+        fm.save()
+        url_timeout.apply_async((fm.pk, ), countdown=settings.TOKEN_TIMEOUT)
+        return JsonResponse({
+            'success': True,
+            'token': fm.token,
+            'expires_at': settings.TOKEN_TIMEOUT
+        })
+    else:
+        raise NotAuthenticated()
 
 
+@api_view(['GET', 'DELETE'])
 def file_view(request, token):
     if request.method in ['GET', 'DELETE']:
-        fm = FileModel.objects.filter(token=token)
-        if not fm.exists():
-            raise NotFound()
+        fm = get_object_or_404(FileModel, token=token)
         f = fm.file.path
         if request.method == 'GET':
             return FileResponse(open(f, 'rb'))

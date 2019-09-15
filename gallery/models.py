@@ -32,7 +32,8 @@ class Image(models.Model):
     class Meta:
         app_label = 'gallery'
         ordering = ('pk', )
-        verbose_name = ''
+        verbose_name = '사진'
+        verbose_name_plural = '사진들'
 
     def __str__(self):
         return self.image.name

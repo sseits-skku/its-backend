@@ -7,7 +7,7 @@ router = routers.DefaultRouter()
 router.register('upload', UploadViewSet)
 
 urlpatterns = [
-    path('<str:token>', file_view),
     path('open', open_view),
+    path('<str:token>', file_view),
     path('', include(router.urls))
 ]

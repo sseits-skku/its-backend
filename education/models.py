@@ -11,16 +11,22 @@ class Category(models.Model):
         ordering = ('title', )
         verbose_name = '교육자료 분류'
         verbose_name_plural = '교육자료 분류들'
+    
+    def __str__(self):
+        return self.title
 
 
 class Education(models.Model):
     category = models.ForeignKey('Category',
+                                 verbose_name='교육자료 분류',
                                  on_delete=models.SET_NULL,
-                                 null=True)
+                                 null=True, blank=True)
     owner = models.ForeignKey('account.User',
+                              verbose_name='교육자료 작성자',
                               on_delete=models.SET_NULL,
                               null=True)
-    file = models.OneToOneField('mediaprovider',
+    file = models.OneToOneField('mediaprovider.FileModel',
+                                verbose_name='업로드한 자료',
                                 on_delete=models.CASCADE)
     caption = models.CharField(verbose_name='교육자료 설명',
                                max_length=255)

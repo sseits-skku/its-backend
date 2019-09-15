@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.urls import path, include
-from django.conf.urls.static import static
 from rest_framework_simplejwt.views import (
     TokenObtainPairView, TokenRefreshView, TokenVerifyView
 )
@@ -11,7 +10,6 @@ urlpatterns = [
     path('auth/verify', TokenVerifyView.as_view(), name='token_verify'),
     path('auth/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('account/', include('account.urls')),
-    path('agenda/', include('agenda.urls')),
     path('edu/', include('education.urls')),
     path('gallery/', include('gallery.urls')),
     path('media/', include('mediaprovider.urls'))

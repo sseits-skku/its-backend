@@ -21,6 +21,8 @@ class User(AbstractUser):
     class Meta:
         app_label = 'account'
         ordering = ('-date_joined', )
+        verbose_name = '계정'
+        verbose_name_plural = '계정들'
 
     def delete(self, *args, **kwargs):
         # Fake deletion.

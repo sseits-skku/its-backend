@@ -6,4 +6,4 @@ from .models import FileModel
 class UploadSerializer(ModelSerializer):
     class Meta:
         model = FileModel
-        fields = '__all__'
+        excludes = ('token', 'is_open')
