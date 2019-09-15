@@ -4,5 +4,5 @@ from .models import FileModel
 
 
 @admin.register(FileModel)
-class FileModelAdmin(admin.ModelAdmin):
+class FileAdmin(admin.ModelAdmin):
     pass
