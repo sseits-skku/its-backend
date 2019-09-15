@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import FileModel
+
+
+@admin.register(FileModel)
+class FileModelAdmin(admin.ModelAdmin):
+    pass
