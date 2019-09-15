@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
-from rest_framework.serializers import ModelSerializer as ms
+from rest_framework.serializers import ModelSerializer
 
 
 User = get_user_model()
 
 
-class UserSerializer(ms):
+class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         exclude = ['password', 'user_permissions']
