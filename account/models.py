@@ -2,18 +2,20 @@ from django.contrib.auth.models import (
     AbstractUser, UserManager
 )
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 
 
 class User(AbstractUser):
-    skku_id = models.CharField(verbose_name=_('SKKU ID'),
+    skku_id = models.CharField(verbose_name='SKKU ID',
                                max_length=255,
                                null=True, blank=True)
-    birthday = models.DateField(verbose_name=_('Birthday'),
+    birthday = models.DateField(verbose_name='생년월일',
                                 null=True)
-    phone_num = models.CharField(verbose_name=_('Phone number'),
+    phone_num = models.CharField(verbose_name='전화번호',
                                  max_length=255,
                                  null=True, blank=True)
+    nickname = models.CharField(verbose_name='닉네임',
+                                max_length=255,
+                                blank=True)
 
     objects = UserManager()
     USERNAME_FIELD = 'username'

@@ -23,8 +23,11 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ['id', 'username', 'email', 'birthday', name]
     fieldsets = [
         ('기본 정보', {
-            'fields': ('username', 'birthday', 'last_name',
-                       'first_name', 'email', 'password')
+            'fields': ('username', 'password')
+        }),
+        ('사용자 정보', {
+            'fields': ('nickname', 'birthday', 'last_name',
+                       'first_name', 'email', 'phone_num')
         }),
         ('권한 설정', {
             'fields': ('is_staff', 'is_superuser', 'groups')
