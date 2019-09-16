@@ -25,3 +25,11 @@ class EducationViewSet(ModelViewSet):
         if self.action in ['list', 'retrieve']:
             perm_classes = [AllowAny]
         return [perm() for perm in perm_classes]
+
+    def get_queryset(self):
+        cat = self.request.query_params.get('category')
+        print(cat)
+        if cat:
+            return Education.objects.filter(category=cat)
+        else:
+            return Education.objects.all()
