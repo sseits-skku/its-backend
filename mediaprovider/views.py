@@ -27,10 +27,10 @@ from secrets import token_urlsafe
 @authentication_classes((JWTAuthentication,))
 def open_view(request):
     try:
-        file_name = f"files/{json.loads(request.body)['file']}"
+        file_id = json.loads(request.body)['file_id']
     except KeyError:
         raise NotFound()
-    fm = get_object_or_404(FileModel, file=file_name)
+    fm = get_object_or_404(FileModel, id=file_id)
     if fm.is_public or request.user.is_authenticated:
         fm.token = token_urlsafe(settings.TOKEN_LENGTH)
         fm.is_open = True
@@ -51,7 +51,9 @@ def file_view(request, token):
         fm = get_object_or_404(FileModel, token=token)
         f = fm.file.path
         if request.method == 'GET':
-            return FileResponse(open(f, 'rb'))
+            res = FileResponse(open(f, 'rb'))
+            res['Content-Disposition'] = 'attachment; filename="{0}"'.format(fm.file.name.rsplit('/', 1)[1])
+            return res
         elif request.method == 'DELETE':
             fm.delete()
             os.unlink(f)
