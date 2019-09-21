@@ -6,6 +6,6 @@ from utils.permissions import IsAdminUser
 
 
 class TransactionViewSet(ModelViewSet):
-    queryset = Transaction
+    queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     permission_classes = [IsAdminUser]

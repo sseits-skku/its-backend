@@ -20,9 +20,7 @@ class Choice(models.Model):
     poll = models.ForeignKey('BasePoll',
                              verbose_name='투표',
                              on_delete=models.CASCADE)
-    selected_user = models.ManyToManyField('account.User',
-                                           on_delete=models.SET_NULL,
-                                           null=True, blank=True)
+    selected_user = models.ManyToManyField('account.User')
 
     class Meta:
         app_label = 'vote'

@@ -11,7 +11,7 @@ class Place(models.Model):
 
     class Meta:
         app_label = 'inventory'
-        ordering = ('title', )
+        ordering = ('room_number', )
         verbose_name = '방'
         verbose_name_plural = '방들'
 
@@ -54,7 +54,8 @@ class OSType(models.Model):
 class Stock(PolymorphicModel):
     stock_id = models.CharField(verbose_name='비품 번호',
                                 max_length=255)
-    stock_type = models.CharField(verbose_name='비품 유형')
+    stock_type = models.CharField(verbose_name='비품 유형',
+                                  max_length=255)
     stock_status = models.ForeignKey('Status',
                                      verbose_name='비품 상태',
                                      on_delete=models.SET_NULL,

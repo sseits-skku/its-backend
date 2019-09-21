@@ -17,7 +17,7 @@ urlpatterns = [
     path('media/', include('mediaprovider.urls')),
     path('recruit/', include('recruit.urls')),
     path('timetable/', include('timetable.urls')),
-    path('vote/', include('vote.urls')),
+    # path('vote/', include('vote.urls')),
 ]
 
 if settings.DEBUG:
