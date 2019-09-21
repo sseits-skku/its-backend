@@ -19,13 +19,11 @@ class IsOwner(BasePermission):
         # We should provide from this information.
         try:
             u = User.objects.get(pk=request.user.pk)
-            return bool(u.is_authenticated and
-                        u == obj.owner)
+            return bool(u.is_authenticated and u == obj.owner)
         except User.DoesNotExist:
             return False
         except AttributeError:
-            return bool(u.is_authenticated and
-                        u.pk == obj.pk)
+            return bool(u.is_authenticated and u.pk == obj.pk)
 
 
 class IsAdminUser(BasePermission):
@@ -34,8 +32,7 @@ class IsAdminUser(BasePermission):
         # We should provide from this information.
         try:
             u = User.objects.get(pk=request.user.pk)
-            return bool(u.is_staff and
-                        u.is_superuser)
+            return bool(u.is_staff and u.is_superuser)
         except User.DoesNotExist:
             return False
 

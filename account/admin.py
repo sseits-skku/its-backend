@@ -9,7 +9,7 @@ User = get_user_model()
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     def name(instance):
-        return instance.last_name+instance.first_name
+        return instance.last_name + instance.first_name
 
     name.short_description = '이름'
 

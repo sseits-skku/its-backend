@@ -6,7 +6,8 @@ class Gallery(models.Model):
     title = models.CharField(verbose_name='사진묶음 제목',
                              max_length=255)
     date = models.DateTimeField(verbose_name='사진묶음 생성일',
-                                auto_now=timezone.now)
+                                auto_now=timezone.now,
+                                blank=True)
     rep_img = models.OneToOneField('Image',
                                    verbose_name='대표 사진',
                                    on_delete=models.PROTECT,

@@ -11,8 +11,13 @@ urlpatterns = [
     path('auth/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('account/', include('account.urls')),
     path('edu/', include('education.urls')),
+    path('finance/', include('finance.urls')),
     path('gallery/', include('gallery.urls')),
-    path('media/', include('mediaprovider.urls'))
+    path('inventory/', include('inventory.urls')),
+    path('media/', include('mediaprovider.urls')),
+    path('recruit/', include('recruit.urls')),
+    path('timetable/', include('timetable.urls')),
+    path('vote/', include('vote.urls')),
 ]
 
 if settings.DEBUG:

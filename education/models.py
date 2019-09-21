@@ -11,7 +11,7 @@ class Category(models.Model):
         ordering = ('title', )
         verbose_name = '교육자료 분류'
         verbose_name_plural = '교육자료 분류들'
-    
+
     def __str__(self):
         return self.title
 
@@ -31,9 +31,11 @@ class Education(models.Model):
     caption = models.CharField(verbose_name='교육자료 설명',
                                max_length=255)
     created_date = models.DateTimeField(verbose_name='교육자료 생성일',
-                                        auto_now_add=timezone.now)
+                                        auto_now_add=timezone.now,
+                                        blank=True)
     modified_date = models.DateTimeField(verbose_name='교육자료 수정일',
-                                         auto_now=timezone.now)
+                                         auto_now=timezone.now,
+                                         blank=True)
 
     class Meta:
         app_label = 'education'
