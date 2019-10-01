@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import django
 from django.apps import apps
 
@@ -63,6 +63,7 @@ if __name__ == '__main__':
     serializer_path = os.path.abspath(
         os.path.join(
             os.path.dirname(os.path.dirname(__file__)),
+            'apps',
             app_label,
             'serializers.py'
         )
@@ -70,6 +71,7 @@ if __name__ == '__main__':
     view_path = os.path.abspath(
         os.path.join(
             os.path.dirname(os.path.dirname(__file__)),
+            'apps',
             app_label,
             'views.py'
         )
@@ -77,6 +79,7 @@ if __name__ == '__main__':
     urls_path = os.path.abspath(
         os.path.join(
             os.path.dirname(os.path.dirname(__file__)),
+            'apps',
             app_label,
             'urls.py'
         )
@@ -84,6 +87,7 @@ if __name__ == '__main__':
     admin_path = os.path.abspath(
         os.path.join(
             os.path.dirname(os.path.dirname(__file__)),
+            'apps',
             app_label,
             'admin.py'
         )
