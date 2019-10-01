@@ -99,6 +99,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+fresh_env.tar.xz
 
 # Spyder project settings
 .spyderproject
