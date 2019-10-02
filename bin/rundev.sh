@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export DJANGO_SETTINGS_MODULE=server.settings.development
 forceexitfn () {
     trap SIGINT
     echo '------EMERGENCY SHUTDOWN------'
@@ -25,7 +25,7 @@ trap "exitfn" INT
 celery worker -P gevent -A server -l info &
 sleep 2
 celery flower -P gevent -A server -l info &
-if ! python manage.py runserver --settings=server.settings.development; then
+if ! python manage.py runserver; then
     exitfn
     exit
 else
