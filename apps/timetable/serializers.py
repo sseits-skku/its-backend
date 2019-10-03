@@ -1,12 +1,15 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SlugRelatedField
 
 from .models import OHTable, OHEntry
 
 
 class OHEntrySerializer(ModelSerializer):
+    ohtable = SlugRelatedField(slug_field='semester', read_only=True)
+
     class Meta:
-        models = OHEntry
-        exclude = ['color', ]
+        model = OHEntry
+        depth = 1
+        fields = ['id', 'name', 'start', 'end', 'color', 'ohtable']
 
 
 class OHTableSerializer(ModelSerializer):

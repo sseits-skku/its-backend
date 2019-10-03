@@ -7,9 +7,6 @@ from utils.random import color_gen
 class OHTable(models.Model):
     semester = models.CharField(verbose_name='학기',
                                 max_length=255)
-    modified_date = models.DateTimeField(verbose_name='OH 시간표 수정 날짜',
-                                         auto_now=timezone.now,
-                                         blank=True)
 
     class Meta:
         app_label = 'timetable'
@@ -43,11 +40,16 @@ class OHEntry(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        entries = OHEntry.objects.select_related('ohtable').filter(ohtable=self.ohtable)
-        names = entries.distinct('name')
+        entries = OHEntry.objects.filter(ohtable=self.ohtable).only('name').order_by('name')
+        names = [e.name for e in entries.distinct('name')]
         colors = color_gen(len(names))
         for i in range(len(names)):
-            entries.filter(name=names[i]).update(color=colors[i])
+            for e in OHEntry.objects.filter(name=names[i]):
+                e.color = colors[i]
+                e._save()
+
+    def _save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.name}: {self.start} - {self.end}'

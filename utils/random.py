@@ -23,13 +23,15 @@ def _get_color_palette():
     retval = []
     for i in COLOR_FULL:
         for j in OPTIONS:
-            retval.append(f'{i} {j}')
+            retval.append(f'{i} {j}'.rstrip())
     for i in COLOR_PARTIAL:
         for j in OPTIONS:
             if j != 'accent-2':
-                retval.append(f'{i} {j}')
+                retval.append(f'{i} {j}'.rstrip())
     return retval
 
 
 def color_gen(num):
-    return np.random.shuffle(_get_color_palette())[:num]
+    pal = _get_color_palette()
+    np.random.shuffle(pal)
+    return pal[:num]
