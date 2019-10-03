@@ -10,10 +10,11 @@ from . import models
 def convert_and_save(image_pk):
     try:
         i = models.Image.objects.get(pk=image_pk)
-        f, e = os.path.splitext(i.image_fallback.path)
-        outfile = f + '.webp'
-        Image.open(f + e).save(outfile)
-        i.image = outfile
-        i._save()
-    except Image.DoesNotExist:
+        if not i.image:
+            f, e = os.path.splitext(i.image_fallback.path)
+            outfile = f + '.webp'
+            Image.open(f + e).save(outfile)
+            i.image = outfile
+            i._save()
+    except models.Image.DoesNotExist:
         pass

@@ -1,5 +1,6 @@
 amqp==2.5.1
 argon2-cffi==19.1.0
+arrow==0.15.2
 Babel==2.7.0
 billiard==3.6.1.0
 celery==4.3.0
@@ -17,14 +18,16 @@ flower==0.9.3
 gevent==1.4.0
 greenlet==0.4.15
 importlib-metadata==0.23
-kombu==4.6.3
+kombu==4.6.5
 mccabe==0.6.1
 more-itertools==7.2.0
+numpy==1.17.2
 Pillow==6.1.0
 psycopg2-binary==2.8.3
 pycodestyle==2.5.0
 pycparser==2.19
 pyflakes==2.1.1
+python-dateutil==2.8.0
 pytz==2019.2
 redis==3.3.8
 six==1.12.0

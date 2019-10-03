@@ -49,7 +49,7 @@ class Education(models.Model):
         # This will remain directories
         # if you set upload_to parameter in file field.
         path = self.file.path
-        super(Education, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)
         os.unlink(path)
 
     def __str__(self):

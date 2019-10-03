@@ -1,3 +1,4 @@
+from arrow import utcnow
 from django.db import models
 from django.utils import timezone
 
@@ -8,7 +9,7 @@ from . import tasks
 
 def gallery_path(instance, filename):
     f, _ = os.path.splitext(filename)
-    return f'images/%Y/%m/{f}/{filename}'
+    return f'images/{utcnow().to("Asia/Seoul").format("YYYY/MM")}/{f}/{filename}'
 
 
 class Gallery(models.Model):
@@ -49,20 +50,25 @@ class Image(models.Model):
         verbose_name_plural = '사진들'
 
     def save(self, *args, **kwargs):
-        super(Image, self).save(*args, **kwargs)
-        tasks.convert_and_save.delay(self.pk)
+        super().save(*args, **kwargs)
+        tasks.convert_and_save.apply_async((self.pk, ), countdown=3)
 
     def delete(self, *args, **kwargs):
         # This will remain directories
         # if you set upload_to parameter in file field.
-        im = self.image.path
-        imf = self.image_fallback.path
-        super(Image, self).delete(*args, **kwargs)
-        os.unlink(im)
-        os.unlink(imf)
+        imf = im = None
+        if self.image:
+            im = self.image.path
+        if self.image_fallback:
+            imf = self.image_fallback.path
+        super().delete(*args, **kwargs)
+        if im:
+            os.unlink(im)
+        if imf:
+            os.unlink(imf)
 
     def _save(self, *args, **kwargs):
-        super(Image, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.image.name
+        return self.image_fallback.name.rsplit('/', 1)[1]

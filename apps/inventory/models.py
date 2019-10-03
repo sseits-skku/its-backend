@@ -66,9 +66,11 @@ class Stock(PolymorphicModel):
     description = models.TextField(verbose_name='세부 설명',
                                    blank=True)
     added_date = models.DateTimeField(verbose_name='비품 구매일',
-                                      auto_now_add=timezone.now)
+                                      auto_now_add=timezone.now,
+                                      blank=True)
     modified_date = models.DateTimeField(verbose_name='비품 상태 변경일',
-                                         auto_now_add=timezone.now)
+                                         auto_now_add=timezone.now,
+                                         blank=True)
 
     class Meta:
         app_label = 'inventory'

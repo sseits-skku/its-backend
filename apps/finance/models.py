@@ -4,7 +4,8 @@ from django.utils import timezone
 
 class Transaction(models.Model):
     created_date = models.DateTimeField(verbose_name='거래일시',
-                                        auto_now_add=timezone.now)
+                                        auto_now_add=timezone.now,
+                                        blank=True)
     abstract = models.CharField(
         verbose_name='적요',
         max_length=255,
@@ -24,7 +25,8 @@ class Transaction(models.Model):
     withdraw = models.IntegerField(verbose_name='출금액', blank=True, default=0)
     money_left = models.IntegerField(verbose_name='잔액', blank=True)
     modified_date = models.DateTimeField(verbose_name='수정일시',
-                                         auto_now=timezone.now)
+                                         auto_now=timezone.now,
+                                         blank=True)
 
     class Meta:
         app_label = 'finance'
@@ -40,7 +42,7 @@ class Transaction(models.Model):
         last_left += self.deposit
         last_left -= self.withdraw
         self.money_left = last_left
-        super(Transaction, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.created_date}: {-self.withdraw if self.withdraw != 0 else self.deposit}'

@@ -23,10 +23,10 @@ class EducationViewSet(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         request.data.update({'owner': request.user.pk})
-        return super(EducationViewSet, self).create(request, *args, **kwargs)
+        return super().create(request, *args, **kwargs)
 
 
-class DownloadView(APIView):
+class EducationDownloadView(APIView):
     def get(self, request, id, *args, **kwargs):
         edu = get_object_or_404(Education, pk=id)
         if edu.is_public or request.user.is_authenticated:

@@ -32,4 +32,4 @@ class User(AbstractUser):
         self.save()
 
     def _delete(self, *args, **kwargs):
-        super(User, self).delete(args, **kwargs)
+        super().delete(args, **kwargs)
